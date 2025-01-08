@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body>
+<!--/*-->
+타임리프에서 인라인 자바스크립트를 사용하려면
+<script th:inline="javascript"></script>
+를 선언해주면된다
+<!--*/-->
+<!-- 자바스크립트 인라인 사용 전 -->
+<script>
+    var username = "[[${user.username}]]"; /*[[${user.username}]]* 로 사용할 경우 자바스크립트 오류 발생/
+    var age = [[${user.age}]];
+    //자바스크립트 내추럴 템플릿
+    var username2 = /*[[${user.username}]]*/ "test username";
+    //객체 - 객체를 호출하면 toString 이 호출됨
+    var user = "[[${user}]]";
+</script>
+
+
+<!-- 자바스크립트 인라인 사용 후 -->
+<script th:inline="javascript">
+    var username = [[${user.username}]];
+    var age = [[${user.age}]];
+    //자바스크립트 내추럴 템플릿
+    var username2 = /*[[${user.username}]]*/ "test username";
+    //객체 타임리프 인라인을 사용하면 객체가 JSON 형태로 출력됨
+    var user = [[${user}]];
+</script>
+
+<!-- 자바스크립트 인라인 each-->
+<script th:inline="javascript">
+    [# th:each="user, stat : ${users}"]
+    var user[[${stat.count}]] = [[${user}]];
+    [/]
+</script>
+
+</body>
+</html>
