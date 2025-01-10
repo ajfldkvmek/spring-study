@@ -55,6 +55,23 @@
         </div>
     </div>
 
+    <hr class="my-4">
+    <!-- single checkbox -->
+    <div>판매 여부</div>
+    <div>
+        <div class="form-check">
+            <!--
+            item.html 에는 th:object 를 사용하지 않았기 때문에 ${item.open} 처럼 사용해야 하며
+            disabled 를 사용해서 상품 상세에서는 체크 박스가 선택되지 않도록 했다.
+            checkbox 의 경우 체크된 값이 없으면 값이 전송되지 않는다.
+            기본적으로는 html 에서 값을 넘겨줄 때 hidden 속성을 사용해 넘겨주어야 하는데
+            스프링에서 타임리프를 사용할 경우 checkbox 의 값을 알아서 히든속성을 추가해서 넘겨줌
+            -->
+            <input type="checkbox" id="open" th:field="${item.open}" class="form-check-input" disabled>
+            <label for="open" class="form-check-label">판매 오픈</label>
+        </div>
+    </div>
+
 </div> <!-- /container -->
 </body>
 </html>
