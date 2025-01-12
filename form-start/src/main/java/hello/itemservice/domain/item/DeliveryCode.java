@@ -16,5 +16,11 @@ public class DeliveryCode {
     private  String code;
     private String displayName;
 
+    public String getCode() {
+        return code;
+    }
 
+    public String getDisplayName() {
+        return displayName;
+    }
 }

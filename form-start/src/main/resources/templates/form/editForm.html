@@ -38,6 +38,55 @@
 
         <hr class="my-4">
 
+
+        <!-- single checkbox -->
+        <div>판매 여부</div>
+        <div>
+            <div class="form-check">
+                <input type="checkbox" id="open" th:field="*{open}" class="form-check-input">
+                <label for="open" class="form-check-label">판매 오픈</label>
+            </div>
+        </div>
+
+        <div>
+            <div>등록 지역</div>
+            <div th:each="region : ${regions}" class="form-check form-check-inline">
+                <input type="checkbox" th:field="*{regions}" th:value="${region.key}" class="form-check-input">
+                <label th:for="${#ids.prev('regions')}"
+                       th:text="${region.value}" class="form-check-label">서울</label>
+            </div>
+        </div>
+
+        <div>
+            <div>상품 종류</div>
+            <!--
+             <div th:each="type : ${T(hello.itemservice.domain.item.ItemType).values()}">
+             이렇게 타임리프에서 자바 enum 객체로 직접 접근하여 값을 가져올 수 도 있다.
+             이 경우 model 에 값을 담지 않아도 사용이 가능함
+             하지만 패키지 구조에 변경이 있거나 할 경우 값을 수정해야함
+             (model 에 직접 담아서 전송하는 방식 추천)
+            -->
+            <div th:each="type: ${itemTypes}" class="form-check form-check-inline">
+            <!--<div th:each="type : ${T(hello.itemservice.domain.item.ItemType).values()}"> -->
+                <input type="radio" th:field="*{itemType}" th:value="${type.name()}" class="form-check-input">
+                <label th:for="${#ids.prev('itemType')}" th:text="${type.description}" class="form-check-label">BOOK</label>
+            </div>
+        </div>
+
+        <!-- SELECT -->
+        <div>
+            <div>배송 방식</div>
+            <select class="form-check-select" th:field="*{deliveryCode}">
+                <option value="">==배송 방식 선택==</option>
+                <option th:each="deliveryCode : ${deliveryCodes}"
+                        th:value="${deliveryCode.code}"
+                        th:text="${deliveryCode.displayName}">FAST
+                </option>
+            </select>
+        </div>
+
+        <hr class="my-4">
+
         <div class="row">
             <div class="col">
                 <button class="w-100 btn btn-primary btn-lg" type="submit">저장</button>
@@ -51,15 +100,6 @@
         </div>
 
         <hr class="my-4">
-        <!-- single checkbox -->
-        <div>판매 여부</div>
-        <div>
-            <div class="form-check">
-                <input type="checkbox" id="open" th:field="*{open}" class="form-check-input">
-                <label for="open" class="form-check-label">판매 오픈</label>
-            </div>
-        </div>
-
     </form>
 
 </div> <!-- /container -->
