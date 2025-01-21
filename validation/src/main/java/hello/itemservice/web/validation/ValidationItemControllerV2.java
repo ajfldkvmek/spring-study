@@ -32,7 +32,7 @@ public class ValidationItemControllerV2 {
     /**
      *
      * @param dataBinder
-     * 해당 컨트롤러가 호출될 때 항상 먼저 이 메소드가 호출되며 검증규칙이 적용된다(해당 컨트롤러에서만 적용됨)
+     * @InitBinder: 해당 컨트롤러가 호출될 때 항상 먼저 이 메소드가 호출되며 검증규칙이 적용된다(해당 컨트롤러에서만 적용됨)
      */
 //    @InitBinder
 //    public void initBinder(WebDataBinder dataBinder) {
