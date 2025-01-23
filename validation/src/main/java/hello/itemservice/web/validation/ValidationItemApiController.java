@@ -20,6 +20,13 @@ public class ValidationItemApiController {
     @PostMapping("/add")
     public Object addItem(@RequestBody @Validated ItemSaveForm form, BindingResult bindingResult) {
 
+        /**
+         *  RequestBody 로 받을 때 에러가 발생한 경우
+         *
+         *  필드 단위로 세밀하게 처리되어 특정 필드가 바인딩 되지 않아도 나머지 필드들은 정상적으로 검증되는 ModelAttribute 와는 다르게
+         *
+         *  RequestBody 는 JSON 형태로 전달되는 특성상 Convert 단계에서 실패하면 다음단계로 진행되지 않고 예외가 발생한다.
+         */
         log.info("API 컨트롤러 호출");
 
         if (bindingResult.hasErrors()) {
