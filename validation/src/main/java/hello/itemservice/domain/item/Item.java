@@ -60,19 +60,19 @@ public class Item {
      *  하지만 groups 를 사용하면 복잡성도 증가하고 단점도 많기 때문에 등록용 객체를 다르게 사용한다(실무에서는)
      */
 
-    @NotNull(groups = UpdateCheck.class)
+//    @NotNull(groups = UpdateCheck.class)
     private Long id;
 
     //    @NotBlank(message = "공백x") //이 메세지는 기본값으로 설정한 값으로 나머지 검증규칙이 없을 때 마지막으로 적용된다
-    @NotBlank(groups = {UpdateCheck.class, SaveCheck.class})
+//    @NotBlank(groups = {UpdateCheck.class, SaveCheck.class})
     private String itemName;
 
-    @NotNull(groups = {UpdateCheck.class, SaveCheck.class})
-    @Range(min = 1000, max = 10000)
+//    @NotNull(groups = {UpdateCheck.class, SaveCheck.class})
+//    @Range(min = 1000, max = 10000)
     private Integer price;
 
-    @NotNull(groups = {UpdateCheck.class, SaveCheck.class})
-    @Max(value = 9999, groups = {SaveCheck.class})
+//    @NotNull(groups = {UpdateCheck.class, SaveCheck.class})
+//    @Max(value = 9999, groups = {SaveCheck.class})
     private Integer quantity;
 
     public Item() {
