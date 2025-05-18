@@ -16,6 +16,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Slf4j
 @Controller
@@ -31,7 +32,51 @@ public class LoginController {
     }
 
 
+    /**
+     *
+     * @param loginForm
+     * @param bindingResult
+     * @param redirectURL
+     * @param response
+     * @param request
+     *
+     * 스프링6, 부트 3.2 이상부터는 파라메터 검증이 더 엄격해져서
+     * @RequestParam(name = "redirectURL",defaultValue = "/") 처럼 파라메터 명을 명시하는것을 권장함
+     * 스프링 공식문서에서는
+     * @RequestParam은 value와 name이 동일하게 동작한다고 명시함
+     * @RequestParam(value = "redirectURL", defaultValue = "/")
+     * @RequestParam(name = "redirectURL", defaultValue = "/")
+     * 이 두가지가 동일 하다는 것
+     * @return
+     */
     @PostMapping("/login")
+    public String loginV4(@Valid @ModelAttribute("loginForm") LoginForm loginForm, BindingResult bindingResult,
+                          @RequestParam(name = "redirectURL",defaultValue = "/") String redirectURL,
+                          HttpServletResponse response ,
+                          HttpServletRequest request
+                          ) {
+        if (bindingResult.hasErrors()) {
+            return "login/loginForm";
+        }
+
+        Member loginMember = loginService.login(loginForm.getLoginId(), loginForm.getPassword());
+
+        if (loginMember == null) {
+            bindingResult.reject("loginFail", "아이디 또는 비밀번호가 맞지 않습니다.");
+            return "login/loginForm";
+        }
+
+        HttpSession session = request.getSession(true);
+        // 세션에 정보 저장
+        session.setAttribute(SessionConst.LOGIN_MEMBER, loginMember);
+
+        log.info("redirectURL={}", redirectURL);
+
+        return "redirect:" + redirectURL;
+    }
+
+
+//    @PostMapping("/login")
     public String loginV3(@Valid @ModelAttribute("loginForm") LoginForm loginForm, BindingResult bindingResult,
                           HttpServletResponse response ,
                           HttpServletRequest request) {
