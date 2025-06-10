@@ -24,17 +24,31 @@ repositories {
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
-	compileOnly 'org.projectlombok:lombok'
-	runtimeOnly 'com.h2database:h2'
-	annotationProcessor 'org.projectlombok:lombok'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
-	// 테스트에서 loombok 사용
-	testCompileOnly 'org.projectlombok:lombok'
-	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+		// 소스수정시 자동 빌드위한 디펜던시
+		developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+		implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+		compileOnly 'org.projectlombok:lombok'
+		runtimeOnly 'com.h2database:h2'
+		annotationProcessor 'org.projectlombok:lombok'
+
+		// 테스트에서 loombok 사용
+		testImplementation 'org.springframework.boot:spring-boot-starter-test'
+		testCompileOnly 'org.projectlombok:lombok'
+		testAnnotationProcessor 'org.projectlombok:lombok'
+		testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
-tasks.named('test') {
+//gradle 5.1 이상부터 지원
+//Lazy Configuration API
+//IDE(특히 IntelliJ)는 완벽히 타입 추론 못 할 수 있어서 경고 줄 수 있으나(ex: "cannot resolve method", "no candidate found")
+//Gradle 빌드 시스템 입장에선 문제 없음
+//tasks.named('test') {
+//	useJUnitPlatform()
+//}
+
+// gradle 4.x 이하버전의 경우
+test {
 	useJUnitPlatform()
 }
